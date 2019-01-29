@@ -1,0 +1,26 @@
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+def confirmationMail(from,to,message):
+    msg = MIMEMultipart()
+    msg['From']=from
+    msg['To']=to
+    msg['Subject']='Email Confirmation'
+    
+    body = message
+    msg.attach(MIMEText(body, 'plain'))
+
+    
+    server=smtplib.SMTP('SMTP.gmail.com',587)
+    server.ehlo()
+    server.starttls()
+    server.ehlo()
+    server.login(from,password)
+    server.ehlo()
+
+    text = msg.as_string()
+    server.sendmail(from,to,text)
+    server.close()
+    
+confirmationMail('xyz@gmail.com','abc@xyz.com','hello buddy')
